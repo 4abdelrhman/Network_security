@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class SubstitutionCipher {
-    // MWERTYUIOPASDFGHJKLZXCVBNQ
+    // MWERTYUIOPADSFGHKJLZXCVBNQ
 
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     // Encryption
