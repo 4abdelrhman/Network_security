@@ -5,11 +5,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class LFSRCipher {
-    // Primitive polynomial table (m = 2 to 168).
-    // Source: R. Ward and T. Molteno, "Table of Linear Feedback Shift Registers"
-    // (University of Otago, 2007), using the entry with the fewest taps for each m.
-    // Key = m, value = exponents of the polynomial (e.g. m = 4 -> {4, 3, 0} = x^4 +
-    // x^3 + 1).
     private static final Map<Integer, int[]> TABLE = new HashMap<>();
     static {
         TABLE.put(2, new int[] { 2, 1, 0 });
