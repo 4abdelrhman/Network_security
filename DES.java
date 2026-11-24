@@ -2,7 +2,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class DES {
-    // Standard DES permutation tables
     private static final int[] IP = {
         58,50,42,34,26,18,10,2, 60,52,44,36,28,20,12,4,
         62,54,46,38,30,22,14,6, 64,56,48,40,32,24,16,8,
@@ -91,7 +90,7 @@ public class DES {
 
     private static long[] generateSubkeys(byte[] key) {
         long keyBits = bytesToLong(key);
-        long permuted = permute(keyBits, 64, PC1); // 56 bits
+        long permuted = permute(keyBits, 64, PC1);
         int c = (int)((permuted >>> 28) & 0x0FFFFFFF);
         int d = (int)(permuted & 0x0FFFFFFF);
         long[] subkeys = new long[16];
@@ -100,7 +99,7 @@ public class DES {
             c = rotateLeft28(c, SHIFTS[i]);
             d = rotateLeft28(d, SHIFTS[i]);
             long combined = (((long)c) << 28) | (d & 0x0FFFFFFFL);
-            subkeys[i] = permute(combined, 56, PC2); // 48-bit subkey
+            subkeys[i] = permute(combined, 56, PC2);
         }
         return subkeys;
     }
@@ -136,7 +135,6 @@ public class DES {
             right = newRight;
         }
 
-        // DES final swap: concatenate R16 then L16, then apply inverse IP.
         long preOutput = (((long)right) << 32) | (left & 0xFFFFFFFFL);
         return permute(preOutput, 64, FP);
     }
@@ -166,7 +164,7 @@ public class DES {
         return block;
     }
 
-    // PKCS#5/#7-style padding makes plaintext of any byte length fit 8-byte blocks.
+    
     private static byte[] pad(byte[] input) {
         int padding = 8 - (input.length % 8);
         byte[] result = new byte[input.length + padding];
@@ -258,7 +256,6 @@ public class DES {
         System.out.println("Decrypted text: " + new String(decrypted, StandardCharsets.UTF_8));
         System.out.println("Original text recovered: " +
                 java.util.Arrays.equals(plainBytes, decrypted));
-        System.out.println("\nNote: This is DES for educational use. DES is insecure for real-world protection.");
         scanner.close();
     }
 }
